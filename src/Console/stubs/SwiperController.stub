@@ -1,0 +1,97 @@
+<?php
+namespace App\Http\Controllers;
+use App\Http\Model\AdminUser;
+use App\Http\Model\Swiper;
+use Illuminate\Http\Request;
+
+class SwiperController extends Controller {
+    public function index(Request $request, Swiper $swiper) {
+        $data = $request->all();
+        $offset = $data['offset'] ?? 0;
+        $limit = $data['limit'] ?? 10;
+//        $where = function ($query) use ($data) {
+//            if (!empty($data['user_id'])) {
+//                $query->where('user_id', '=', $data['user_id']);
+//            }
+//            if (!empty($data['nickname'])) {
+//                $search = "%" . $data['nickname'] . "%";
+//                $query->where('nickname', 'like', $search);
+//            }
+//        };
+        $where =[];
+        $swipers = $swiper->offset($offset)->limit($limit)->where($where)
+            ->orderBy('create_time','desc')->get()->toArray();
+        return successReturn($swipers);
+    }
+
+    /**
+     *
+     * Show the form for creating a new resource.
+     * @return \Illuminate\Http\Response
+     */
+    public function create(AdminUser $admin) {
+
+    }
+    public function getAll(){
+
+    }
+
+    /**
+     *
+     * Store a newly created resource in storage.
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request,Swiper $swiper) {
+        $param = $request->all();
+        $swiper->create($param);
+        return successReturn();
+    }
+
+    /**
+     *
+     * Display the specified resource.
+     * @param  int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id) {
+
+    }
+
+    /**
+     *
+     * Show the form for editing the specified resource.
+     * @param  int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id) {
+
+    }
+
+    /**
+     *
+     * Update the specified resource in storage.
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id) {
+        $param = $request->all();
+        if(strpos($param['img_url'],'http') >-1){
+            unset($param['img_url']);
+        }
+        Swiper::where('id','=',$id)->update($param);
+        return successReturn();
+    }
+
+    /**
+     *
+     * Remove the specified resource from storage.
+     * @param  int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id) {
+        Swiper::where('id','=',$id)->delete();
+        return successReturn();
+    }
+}

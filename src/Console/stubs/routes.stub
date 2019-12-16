@@ -1,0 +1,13 @@
+<?php
+
+use Illuminate\Routing\Router;
+
+Admin::routes();
+
+Route::group([
+    'prefix'        => config('component.route.prefix'),
+    'namespace'     => config('component.route.namespace'),
+    'middleware'    => config('component.route.middleware'),
+], function (Router $router) {
+
+});
