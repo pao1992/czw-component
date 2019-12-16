@@ -32,6 +32,6 @@
             "aliases": {
                 "Czw": "Czw\\Component\\Facades\\Czw"
             }
-
         }
+    }
 }
