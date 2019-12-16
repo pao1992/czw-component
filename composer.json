@@ -18,20 +18,20 @@
     },
     "autoload": {
         "psr-4": {
-            "App\\": "app/",
             "Czw\\Component\\": "src/"
         },
         "files": [
             "src/helpers.php"
         ]
     },
-    "autoload-dev": {
-        "psr-4": {
-            "Tests\\Models\\": "tests/models",
-            "Tests\\Controllers\\": "tests/controllers"
-        },
-        "classmap": [
-            "tests/TestCase.php"
-        ]
-    }
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Czw\\Component\\ComponentServiceProvider"
+            ],
+            "aliases": {
+                "Czw": "Czw\\Component\\Facades\\Czw"
+            }
+
+        }
 }
